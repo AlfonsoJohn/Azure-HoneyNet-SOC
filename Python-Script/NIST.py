@@ -1,7 +1,5 @@
 # -----------------
-# Below is a Python script that interacts with the OpenAI GPT-4 API to analyze job descriptions and 
-# match them with roles defined in the NICE Cybersecurity Framework. 
-# -----------------
+# (Not finish) Below is a Python script that interacts with the OpenAI GPT-4 API to analyze data to find common vulnerabilities
 
 import openai
 import time
@@ -33,31 +31,8 @@ def get_text_contents(file_path):
         contents = file.read()
     return contents
 
-def create_prompt(job_description, nice_framework):
+def create_prompt(attack_type, nist_framework):
     return f'''
-Based on the [NICE Cybersecurity Framework] and definition of
-Job roles defined below, what is the most appropriate
-job role listed in the spreadsheet for the job description below?
-Please only choose roles which appear in the "role" column of the
-[NICE Cybersecurity Framework]. 
-Analyze the included content accurately to identify the most
-suitable role for the job description provided. Do not [Output]
-in any other way than what I describe below (after the Job Description section).
-—
-[Job Description]:
-{job_description}
-—
-[NICE Cybersecurity Framework]:
-{nice_framework}
-—
-[Output]:
-{{
-"role":"((the role from the [NICE Cybersecurity Framework] that closest matches the [Job Description]",
-"explanation":"((justification for your selection))"
-}}
-—
-
-    '''
 
 def ask_chatgpt(key, model, prompt):
    # Plug the API key into the openai object
@@ -96,13 +71,3 @@ def dump_contents_to_text_file(new_file_name, contents):
         return False
 
 # ----- SCRIPT RUNS HERE ----- #
-print("—")
-job_description = get_text_contents("internet-job-description.txt")
-NICE_framework = get_tsv_contents("nice-roles.tsv")
-prompt = create_prompt(job_description, NICE_framework)
-response = ask_chatgpt(ChatGPT_API_KEY, GPT_MODEL, prompt)
-cleaned_response = clean_up_response(response)
-dump_contents_to_text_file("actual-job-description.json", cleaned_response)
-dump_contents_to_text_file("prompt.txt", prompt)
-print('fin.')
-print("—")
