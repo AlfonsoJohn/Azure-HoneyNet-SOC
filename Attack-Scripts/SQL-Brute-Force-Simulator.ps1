@@ -10,7 +10,6 @@ $connectionString = "Server=$serverName;Database=$databaseName;Integrated Securi
 
 $count = 0
 
-
 while ($count -lt $max_attempts){
     $count++
     try {
