@@ -2,7 +2,6 @@
 ![Cloud Honeynet / SOC](https://imgur.com/l6sf2uN.jpg)
 
 
-
 ## Introduction
 Introducing a comprehensive approach to building a HoneyNet via Microsoft Azure. This project aims to create a visual representation of real-world cyber attacks from around the globe by gathering data from various IP addresses. By collecting log sources from diverse resources and ingesting them into a Log Analytics workspace, we can leverage Microsoft Sentinel to construct attack maps, trigger alerts, and generate incidents.
 
